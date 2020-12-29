@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+  }
+
+body {
+    background: url(images/greenwashiback.jfif) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.container2 {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    background-color: white;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+}
+
+.container3 {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    margin-left: 20px;
+}
+
+h1 {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom:50px;
+    margin-right: 20px;
+}
+
+footer {
+    width=100%;
+}
+
+
