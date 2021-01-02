@@ -31,8 +31,17 @@ h1 {
     margin-right: 20px;
 }
 
-footer {
-    width=100%;
+p [
+    float: left:
+]
+
+.img-thumbnail {
+    width: 350px;
+    height: 300px;
+
 }
 
-
+footer {
+    width=100%;
+    text-align:center;
+}
