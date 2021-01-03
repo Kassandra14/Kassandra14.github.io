@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-  }
+}
 
 body {
     background: url(images/greenwashiback.jfif) no-repeat center center fixed; 
@@ -10,12 +10,14 @@ body {
     background-size: cover;
 }
 
+
+
 .container2 {
-    margin-top: 50px;
-    margin-bottom: 100px;
+    margin-top: 30px;
+    margin-bottom: 150px;
+    margin-left: 30px;
+    padding: 50px;
     background-color: white;
-    border-bottom-style: solid;
-    border-bottom-color: black;
 }
 
 .container3 {
@@ -25,16 +27,28 @@ body {
 }
 
 h1 {
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-bottom:50px;
-    margin-right: 20px;
+    border-bottom;
 }
 
-p [
-    float: left:
-]
+h2 {
+    margin-top: 20px;
+    margin-bottom:20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
 
+.bio {
+    float: left:
+}
+
+.card-img {
+    margin-top: 20px;
+    margin-bottom:20px;
+    margin-right: 20px;
+    margin-left: 30px;
+    border: none;
+
+}
 .img-thumbnail {
     width: 350px;
     height: 300px;
