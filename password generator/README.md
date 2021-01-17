@@ -13,32 +13,12 @@ This is the password generator assignment - should incorporate all of the inform
 
 Application urls:
 
+ https://kassandra14.github.io/password%20generator//Develop/index.html
 
 
+Repo url:
+
+ https://github.com/Kassandra14/Kassandra14.github.io
+ 
 
 
-
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains quality readme file with description, screenshot, and link to deployed application.
-
-## Review
-
-You are required to submit the following for review:
-
-* The URL of the deployed application.
-
-* The URL of the GitHub repository, with a unique name and a readme describing the project.
-
-- - -
-
-© 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
