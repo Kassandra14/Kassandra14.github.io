@@ -7,7 +7,7 @@ method: 'GET',
 redirect: 'follow'
 };
 
-fetch("http://api.openweathermap.org/data/2.5/weather?q=London&appid=cfd2430c3ee19405f5b8a3b9dd3ab7f3", requestOptions)
+fetch("http://api.openweathermap.org/data/2.5/weather?q=London&appid=cfd2430c3ee1XXXX405f5b8a3b9dd3ab7f3", requestOptions)
     .then(response => response.json())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
