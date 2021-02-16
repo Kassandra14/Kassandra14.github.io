@@ -1,0 +1,87 @@
+@media only screen and (min-width: 1132px)
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body{
+background-color:   rgba(30, 175, 211, 0.6);
+font-family: 'Libre Baskerville', sans-serif;
+}
+
+header{
+    font-family: "Nunito", sans-serif;
+
+    padding: 15px;
+    margin: 20px
+    
+}
+
+H2{
+    font-size: 45px;
+    font-weight: bold;
+    color: ivory;
+}
+
+.input{
+    text-align: center;
+    margin: 100px 0;
+}
+
+input[type="text"]{
+    height: 35px;
+    width: 250px;
+    background: whitesmoke;
+    font-family: "Nunito", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    border-radius: 2px;
+    padding: 10px 10px;
+}
+
+input[type="submit"]{
+    height: 50px;
+    width: 100px;
+    background: burlywood;
+    font-family: "Nunito", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    border-radius: 2px;
+}
+
+.search-button{
+    background-color: lightcyan;
+    margin: 5px;
+
+}
+.display{
+    text-align: center;
+}
+
+
+.card {
+    margin: 20px;
+    padding: 25px;
+}
+
+.card-titleforecast{
+ text-align: left;
+}
+
+#current-weather {
+    height: 250px;
+    width: 300px;
+    text-align: center;
+    text-align: hoizontal;
+
+}
