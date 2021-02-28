@@ -79,9 +79,52 @@ input[type="submit"]{
 }
 
 #current-weather {
-    height: 250px;
+    height: 300px;
     width: 300px;
     text-align: center;
     text-align: hoizontal;
 
+}
+
+.btn {
+    border-radius: 10;
+}
+
+
+
+.green {
+    color: green;
+    text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+}
+
+.yellow {
+    color: yellow;
+    text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+}
+
+.red {
+    color: red;
+    text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+   
+}
+
+.list {
+    border-radius: 5px;
+    padding-left: 13px;
+    padding-right: 13px;
+    width: 125px;
+    background-color: skyblue;
+    color: black;
 }

@@ -7,14 +7,10 @@ var currentWind = $("#current-weather").children(".row").children(".wind");
 var currentUvi = $("#current-weather").children(".row").children(".uvi");
 
 var userFormEl = document.querySelector("#city");
-//var currentWeatherContainerEl = document.querySelector("#current-weather");
-//var forecastWeatherEl = document.querySelector("#forecast-weather");
-
 
 var cityName = $("#city-name").val();
 
 var searchButton = document.querySelector("#search-button");
-
 var ls = window.localStorage
 
 var citySearchHistory = JSON.parse(ls.getItem('citySearchHistory')) || [];
@@ -25,7 +21,6 @@ var lonCoordinates = "";
 var latCoordinates = "";
 
 
-//populate last searched city when page is reloaded?
 
 
 //event listener on button should fetch current and forecast weater info of searched city
@@ -35,23 +30,31 @@ $('#search-button').on("click", function(event) {
     clearCurrent();
     event.preventDefault();       
 //         //enter a city
+
         var city = $("#city-name").val();
 
+       
          //put into local storage
          citySearchHistory.push(city)
          ls.setItem('citySearchHistory', JSON.stringify(citySearchHistory))
-         //create dom element to retrieve city as a button to append to the card body
-         
-         if (localStorage.getItem(city)) {
+//loop through citySearchHistory
+    //create a new button with a name and an onclick
+        //append it to the search history dom el
 
-            createSearchHistory(localStorage.getItem(city));
-         }
+         //create dom element to retrieve city as a button to append to the card body
+
+        //  if (localStorage.getItem(city)) {
+
+        //     createSearchHistory(localStorage.getItem(city));
+
+        //  }
          
-            //get the info stuff
          getCurrentWeatherData(city);
-         //createSearchHistory(cityName);
+         createSearchHistory(city);
          getWeatherIcon(city);
   });
+
+//get current weather data function
 
 function getCurrentWeatherData(cityName) {
 
@@ -64,19 +67,23 @@ function getCurrentWeatherData(cityName) {
     //fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + latCoordinates + '&lon='  + lonCoordinates + '&appid=d98badc946d5bab20021e4552ce1d082')
 
     .then(function (response) {
+        if(response.cod === '404') {
+            $('#city-name').val('')
+            alert('Please enter a valid city name')
+            
+        }
             return response.json();
         })
         .then(function (data) {
             console.log(data);
 
-            // -present a color that indicates:
-            //- conditions are favorable, moderate, or severe
             var searchedCity = data.name;
             currentCity.append(searchedCity);
 
-            var currentDate = data.dt;
-           // displayedDate.append(searchedDate);
-            convertDate(currentDate);  
+            var unixDate = data.dt;
+            var readableDate = convertDate(unixDate)
+           displayedDate.append(readableDate)
+              
 
             var searchedTemp = data.main.temp;
             currentTemp.append(searchedTemp + " F" );
@@ -85,29 +92,35 @@ function getCurrentWeatherData(cityName) {
             var searchedHumidity = data.main.humidity;
             currentHumidity.append(searchedHumidity + " %" );
             console.log(data.main.humidity);
-
             var searchedWind = data.wind.speed;
             currentWind.append(searchedWind + " mph");
-
+            
+            
             var searchedLonCoor = data.coord.lon;
             lonCoordinates = searchedLonCoor;
 
             var searchedLatCoor = data.coord.lat;
             latCoordinates = searchedLatCoor;
+            var searchedUvi = data.main.uvi
+            currentUvi.append(searchedUvi);
+            //console.log(current.uvi);
 
-           // var searchedIcon = data.weather.icon;
-           // currentWeatherIcon.append(searchedIcon)
+            var searchedIcon = data.weather.icon;
+            currentWeatherIcon.append(searchedIcon)
+            console.log(data.weather.icon);
 
-
-    //THIS IS NOT RENDERING - current
+    //weather icon 
             var iconCode = data.weather[0].icon;
+            //console.log('ICON CODE ---> ', iconCode)
             var iconUrl = 'http://openweathermap.org/img/wn/' + iconCode + '@2x.png';
-            currentWeatherIcon.append("src", iconUrl);
+        
+            currentWeatherIcon.append($('img').attr('src',iconUrl));
 
             getFiveDayForecastData(cityName);
-
             })
         }
+
+//five day forecast info 
 
 function getFiveDayForecastData(cityName) {
 
@@ -128,12 +141,11 @@ function getFiveDayForecastData(cityName) {
         
                 for (i = 1; i < 6; i++) {
 
-
-//THERE IS A PROBLEM WITH DATE CONVERSION                    
-                //function convertForecastDate(fetchedDate) {   
-                 var forecastDate = $("#forecast-block-" + [i]).children(".forecast-date"); 
-                var forecastDateData = forecastData.daily [i].dt;
-                forecastDate.append(forecastDateData);
+                 var forecastDate = $("#forecast-block-" + [i]).children(".forecast-date")
+                var forecastDateData  = convertDate(forecastData.daily[i].dt);
+                    console.log('forecastData', forecastData)
+                forecastDate.text(forecastDateData);
+                
                 // var date = new Date(forecastDateData * 1000);
                 // var year = date.getFullYear();
                 // var month = date.getMonth() +1;
@@ -142,15 +154,16 @@ function getFiveDayForecastData(cityName) {
                 // forecastDate.append(convertedforecastDate);
                 //};
                 
+                
                 var forecastTemp = $("#forecast-block-" + [i]).children(".temperature");
-                forecastTemp.html("Temp: ");
                 var forecastTempData = forecastData.daily[i].temp.day;
-                forecastTemp.append(forecastTempData + " F");
+                forecastTemp.html("Temp: " + forecastTempData + " F");
+                // forecastTemp.text();
 
                 var forecastHumidity = $("#forecast-block-" + [i]).children(".humidity");
-                forecastHumidity.text("Humidity: ");
                 var forecastHumidityData = forecastData.daily[i].humidity;
-                forecastHumidity.append(forecastHumidityData + " %");
+                forecastHumidity.text("Humidity: " + forecastHumidityData + " %")
+                // forecastHumidity.(forecastHumidityData + " %");
 
                 var forecastIcon = $("#forecast-block-" + [i]).children(".forecast-icon");
                 var forecastIconData = forecastData.daily[i].weather[0].icon;
@@ -160,13 +173,22 @@ function getFiveDayForecastData(cityName) {
           // -present a color that indicates:                    
           //- conditions are favorable, moderate, or severe
                 var searchedUvi = forecastData.current.uvi
-                currentUvi.append(searchedUvi)
+                currentUvi.text('UV Index: ' + searchedUvi)
 
                 var forecastUvi = $("#forecast-block-" + [i]).children(".uvi");
                 var forecastUviData = forecastData.daily[i].uvi
-                forecastUvi.append(forecastUviData)
 
+                forecastUvi.text('UV Index: ' + forecastUviData)
+                if (searchedUvi >3 && searchedUvi <7) {
+                    currentUvi.addClass('yellow');
+                } else if (searchedUvi <=3) {
+                    currentUvi.addClass('green').removeClass("yellow red");
+                } else if (searchedUvi >=7) {
+                    currentUvi.addClass("red").removeClass("green yellow");
+                };
+            //currentUvi.append(searchedUvi);
             };
+
         });
 };
 
@@ -174,17 +196,8 @@ function getFiveDayForecastData(cityName) {
 
 // //function to get weather icon to add to card
 function getWeatherIcon(city)  {
-
-//create image element in html
-    // var iconCode = data.weather[0].icon;
-    // $("#iconCode").attr("src", iconUrl);
-  //$("#current-icon").append(iconCode);
 };
-// //create src attribute in the img element            
-//     var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
-//     
 
-// };
 
 //Clear current weather values
 
@@ -196,26 +209,40 @@ function clearCurrent() {
     currentHumidity.text("Humidity: ");
     currentWind.text("Wind Speed: ");
     currentUvi.text("UV Index: ");
-
+    
 };
 
+function clearFiveDay() {
+    const arrayOfBlocks = $('.forecast-card')
+
+    console.log('array of Blocks- ---> ', arrayOfBlocks)
 
 
+}
+     
+
+// };
 //save last seached city name to be used for history section when page loads
 //  add city to the search history
 // Saves the last searched city name to be used for the history section when page is reloaded
-// get current and forecast data for city button list?
+// get current and forecast data for searched cities
 
 function createSearchHistory(city) {
 
     var historyBtn = $("<li>", { "class": "button" }).text(city);
+    historyBtn.click(function(event) {
+        clearCurrent();
+        clearFiveDay();
+        getFiveDayForecastData(city);
+        getCurrentWeatherData(city); 
+
+        historyBtn.addClass('list');
+    })
     $("#historySearchBtn").prepend(historyBtn);
 };
 
 // Populates weather for last searched city when button is clicked
 $("#historySearchBtn").click(function (event) {
-
-
     //localStorage.setItem("city", event.target.textContent);
 
     //currentWeatherData(event.target.textContent)
@@ -226,14 +253,21 @@ $("#historySearchBtn").click(function (event) {
 function convertDate(fetchedDate) {
 
     var date = new Date(fetchedDate * 1000);
-
     var year = date.getFullYear();
     var month = date.getMonth() +1;
     var day = date.getDate();
     var convertedDate =  month + "/" + day + "/" + year;
-    displayedDate.append(convertedDate);
+    // displayedDate.append(convertedDate);
+    return convertedDate
 };   
 
+//create image element in html
+    // var iconCode = data.weather[0].icon;
+    // $("#iconCode").attr("src", iconUrl);
+  //$("#current-icon").append(iconCode);
+  // //create src attribute in the img element            
+//     var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+//
 //cityButtonEl.addEventListener('click', buttonClickHandler);
         
         
