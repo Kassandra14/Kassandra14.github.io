@@ -1,0 +1,61 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: url(images/greenwashiback.jfif) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+
+.container2 {
+    margin-top: 30px;
+    margin-bottom: 150px;
+    margin-left: 30px;
+    padding: 50px;
+    background-color: white;
+}
+
+.container3 {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    margin-left: 20px;
+}
+
+h1 {
+    border-bottom;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-bottom:20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.bio {
+    float: left:
+}
+
+.card-img {
+    margin-top: 20px;
+    margin-bottom:20px;
+    margin-right: 20px;
+    margin-left: 30px;
+    border: none;
+
+}
+.img-thumbnail {
+    width: 350px;
+    height: 300px;
+
+}
+
+footer {
+    width=100%;
+    text-align:center;
+}
