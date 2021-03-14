@@ -16,24 +16,45 @@ const generateTeam = Team => {
             </div> `
     };
 
+    const createEngineer = Engineer => {
+    return `
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header" class="manager" style="background:#5F9EA0; color:blanched almond;">
+                ${Engineer.getName()} <br>
+                    Engineer
+            </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" class="id">ID: ${Engineer.getId()}</li>
+                    <li class="list-group-item" class="email"> email: ${Engineer.getEmail()}</li>                    
+                    <li class="list-group-item" class="gitUser">GitHub: ${Engineer.getGitUser()} </li>
+                </ul>
+            </div>
+        </div> `
+    };    
 
-    // const createEngineer = Engineer => {
-    //     return `
-      
-    //     `
-    // };    
-
-    // const createIntern = Intern => {
-    //     return `
-        
-    //     `
-    // };
+    const createIntern = Intern => {
+    return `
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header" class="manager" style="background:#5F9EA0; color:blanched almond;">
+                ${Intern.getName()} <br>
+                    Intern
+            </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" class="id">ID: ${Intern.getId()}</li>
+                    <li class="list-group-item" class="email"> email: ${Intern.getEmail()}</li>                    
+                    <li class="list-group-item" class="internSchool">School: ${Intern.getInternSchool()} </li>
+                </ul>
+            </div>
+        </div> `    
+    };
 
     const htmlArray = [];
 
     htmlArray.push(Team.filter(employee => employee.getRole()=== 'Manager').map(manager => createManager(manager)));
-    // htmlArray.push(fullSquad.filter(employee => employee.getRole()=== 'Engineer').map(engineer => createEngineer(engineer)));
-    // htmlArray.push(fullSquad.filter(employee => employee.getRole()=== 'Intern').map(intern => createIntern(intern)));
+    htmlArray.push(Team.filter(employee => employee.getRole()=== 'Engineer').map(engineer => createEngineer(engineer)));
+    htmlArray.push(Team.filter(employee => employee.getRole()=== 'Intern').map(intern => createIntern(intern)));
 
     return htmlArray.join('');
 }
@@ -55,7 +76,7 @@ const generateTeam = Team => {
                 style="background:#6495ED; color:blanchedalmond; text-align: left;padding: 15px;">
                 <h3 class="header">My Team</h3>
             </div>
-            <div class="container" style="border: 2px solid gray; margin-top: 50px;">
+            <div class="container" style="margin-top: 50px;">
                 <div class="row">
                 ${generateTeam(teamPlan)}
                 </div>

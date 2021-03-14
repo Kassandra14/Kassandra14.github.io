@@ -61,7 +61,7 @@ function makeTeam() {
                message: "What is your engineer's GitHub username?",
                name: "gitUser",
            }) 
-            .then(function ({ github}) {
+            .then(function ({gitUser}) {
                const engineer = new Engineer(name, id, email, gitUser)
                team.push(engineer);
                finish();
