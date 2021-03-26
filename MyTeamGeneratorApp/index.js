@@ -5,7 +5,7 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 
 const path = require("path");
-const Employee = require("./lib-classes/employee");
+const Employee = require("./lib-classes/employee.js");
 const Manager = require("./lib-classes/manager");
 const Engineer = require("./lib-classes/engineer");
 const Intern = require("./lib-classes/intern");
@@ -28,13 +28,13 @@ function init() {
 function makeTeam() {
     inquirer.prompt([
         {    
-        messsage:'enter employee name',
+        messsage:"Enter employee name:",
         type: 'input',
         name: 'name',
         validate: (value) => { if (value) {return true} else { return "please enter employee name"}},
         },
         {    
-        message: "Enter employee ID",
+        message: "Enter employee ID:",
         type: 'input',
         name: 'id',
         validate: (value) => { if (value) {return true} else { return "please enter employee ID"}},
