@@ -7,7 +7,7 @@ This is a Node.js command-line application that takes in information about emplo
 
 ## Installation
 
-This application uses inquirer to collect input from the user and jest for testing
+This application uses inquirer to collect input from the user and jest for testing,
 
 ## Testing
 
@@ -19,19 +19,17 @@ This application uses jest to run unit tests on the application.
 
 ## Github repo URL:
 
+https://github.com/Kassandra14/Kassandra14.github.io
+
 ## Screenshot of sample generated html:
+
+![](2021-03-25-20-36-40.png)
+
 
 ## Video walkthrough link:
 
-* A walkthrough video that demonstrates the functionality of the Team Profile Generator and passing tests must be submitted, and a link to the video should be included in your README file.
+
 
 A link to the walkthrough video is available here:
 
-https://kassandra14.github.io/tree/main/MyTeamGeneratorApp
-
-
-
-
-
-
-
+https://kassandra14.github.io/MyTeamGeneratorApp/teamGeneratorAppWalkThroughVideo.mp4
