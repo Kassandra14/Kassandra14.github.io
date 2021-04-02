@@ -18,6 +18,7 @@ This app runs in the browser, uses jQuery and Moment.js library for time formatt
 
 Access the app here:
 
-
+Repo: https://github.com/Kassandra14/Kassandra14.github.io
+App: https://kassandra14.github.io/dailyPlannerApp/dailyPlannerApp/
 
 
