@@ -6,32 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Javascript Quiz</title>
-    <link rel="stylesheet" href="./Assets/style.css">
+    <link rel="stylesheet" href="./Assets/css/style.css">
 </head>
 
 <body>
+    <p id='timer' class='hide'>100</p>
 
-    <div class="quiz">
-        <div id="question-container" class="hide">
+    <div id='start-screen-container'>
+        <h2>Coding Quiz Challenge</h2>
+        <p>You like coding. Prove it.</p>
+        <button id='start-button'>Start</button>
+    </div>
 
-            <div id="question">Question</div>
-            <div id="answer-buttons" class="btn-grid">
-                <button class="btn">Answer 1</button>
-                <button class="btn">Answer 2</button>
-                <button class="btn">Answer 3</button>
-                <button class="btn">Answer 4</button>
-            </div>
-            <div class="controls">
-                <button id="start-btn" class="start-btn btn">Start</button>
-            </div>
+        <div id='question-container' class='hide'>
+           
         </div>
-    </div>    
-        <script src="./Assets/script.js"></script>
-</body>
+        <button id='submit-button'>Submit</button>
 
+        <div id='results-page' class='hide'>
+            <h2>Finish!</h2>
+            <p>Your final score is <span class="final-score"></span>.</p>
+            <form>
+                <label for="initials">Enter Initials Here:</label>
+                <input type="text" id="initials" name="initials">
+                <button id="results-button" type="button" class="btn btn-outline-primary">Submit</button>
+            </form>
+        </div>
+
+        <div id='highscore-page' class='hide'>
+            <h2>Highscores</h2>
+            <div class="highscores-listed"></div>
+                <ol id="hslist"></ol>
+            <button id="goback-button" type="button" class="btn btn-outline-primary">Go Back</button>
+            <button id="clear-highscores" type="button" class="btn btn-outline-primary">Clear Highscores</button>
+        </div>    
+    </body>
+    <script src="./Assets/js/script3.js"></script>
 </html>
 
-
-<!--<div id="quiz"></div>
-//<button id="submit">Submit Quiz</button>//
-//<div id="results"></div>//
