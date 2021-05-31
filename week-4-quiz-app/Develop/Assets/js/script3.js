@@ -137,7 +137,7 @@ function startQuiz() {
 
     currentQuestion = 0;
     totalCorrectAnswers = 0;
-    count = 60
+    count = 99
     document.querySelector(".final-score").innerHTML = "";
     renderQuestion();
 };
