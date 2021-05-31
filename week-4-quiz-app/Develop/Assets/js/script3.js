@@ -1,17 +1,31 @@
-// WHEN I answer a question
-// THEN I am presented with another question
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
+
 // WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
 // WHEN the game is over
 // THEN I can save my initials and my score
 
-var startButton = document.getElementById('start-button');
-var startScreen = document.getElementById('start-screen-container')
-var questionContainer = document.getElementById('question-container')
-var resultsContainer = document.getElementById('results-page')
-const submitButton = document.getElementById('submit-button');
+var startButton = document.querySelector(".start-quiz");
+var startScreen = document.getElementById('start-screen');
+var quizContainer = document.querySelector(".quiz-container");
+var question = document.getElementById("questionHere");
+var possibleAnswers = document.getElementById('possibleAnswers');
+var Alert = document.getElementById('alert');
+var hideResults=true;
+var finalScore = document.querySelector(".final-score");
+var resultsContainer = document.getElementById('results-page');
+var submitButton = document.querySelector('.submit-score');
+var restartButton = document.querySelector('.restart');
+var clearHighscoreButton = document.querySelector('.clear-highscores');
+var listedHighscoreScores = document.querySelector(".highscoresListedScores");
+var listedHighscoreInitials = document.querySelector(".highscoresListedInitials");
+
+var currentQuestion = 0;
+var totalCorrectAnswers = 0;
+var questionIndex = 0;
+// Pagination
+const previousButton = document.getElementById("previous");
+const nextButton = document.getElementById("next");
+const slides = document.querySelectorAll(".slide");
+let currentSlide = 0;
 
 //timer
 var timerEl = document.getElementById('timer')
@@ -21,161 +35,183 @@ var timeInterval;
 var allQuestions = [
     {
         question: "What is not a falsy value?",
-        possibleAnswers: {
-            a:'undefined', 
-            b: 'null', 
-            c: 'false', 
-            d: 'true'
-        },
-        answerIndex:  "d"
+        possibleAnswers: [
+            "undefined", 
+            "null", 
+            "false", 
+            "true"
+        ],
+        answerIndex:  "true"
     },
     {
         question: "The contents of an array are enclosed within:",
-        possibleAnswers: {
-            a:'parentheses', 
-            b: 'curly brackets', 
-            c: 'quotes', 
-            d: 'square brackets'
-        },
-        answerIndex:  "d"
+        possibleAnswers: [
+            "parentheses", 
+            "curly brackets", 
+            "quotes", 
+            "square brackets"
+        ],
+        answerIndex:  "square brackets"
     },
     {
         question: "String values must be enclosed within:",
-        possibleAnswers: {
-            a: 'quotes',
-            b: 'curly brackets', 
-            c: 'square brackets',
-            d: 'parentheses'
-        },
-        answerIndex:  "a"
+        possibleAnswers: [
+            "quotes",
+            "curly brackets", 
+            "square brackets",
+            "parentheses"
+        ],
+        answerIndex:  "quotes"
     },
     {
         question: "The conditions of if/else statements are enclosed within:",
-        possibleAnswers: {
-            a: 'quotes', 
-            b: 'curly brackets', 
-            c: 'square brackets', 
-            d: 'parentheses'
-        },
-        answerIndex:  "b"
+        possibleAnswers: [
+            "quotes", 
+            "curly brackets", 
+            "square brackets", 
+            "parentheses"
+        ],
+        answerIndex:  "curly brackets"
     },
-    {
-        question: "A very useful tool for debugging and identifying element content is:",
-        possibleAnswers: {
-            a: 'inspect console', 
-            b: 'google', 
-            c: 'console log', 
-            d: 'all of these'
-        },
-        answerIndex:  "d"
+]
+
+hideResultsPage();
+hideHighscorePage();
+
+startButton.addEventListener("click", startQuiz);
+
+possibleAnswers.addEventListener("click", function (event) {
+    Alert.innerHTML = ""
+
+    var userChoice = event.target.textContent
+    var answerDisplayEl = document.createElement("h2");
+    if (userChoice == allQuestions[currentQuestion].answerIndex) {
+        answerDisplayEl.textContent = "Correct :)";
+        totalCorrectAnswers++;
+    } else {
+        answerDisplayEl.textContent = "Wrong :(";
+        count = count - 10;
     }
-];
+   
+    Alert.append(answerDisplayEl);
+    currentQuestion++;
 
-
-var questionIndex = 0;
-var score = 0
-
-//functin to display quiz
-function startQuiz() {
-  // variable to store the HTML output
-  const output = [];
-
-  // for each question...
-  allQuestions.forEach(
-    (currentQuestion, questionNumber) => {
-
-      // variable to store the list of possible answers
-      const possibleAnswers = [];
-
-      // and for each available answer...
-      for(letter in currentQuestion.possibleAnswers){
-
-        // ...add an HTML radio button
-        possibleAnswers.push(
-          `<label>
-            <input type="radio" name="question${questionNumber}" value="${letter}">
-            ${letter} :
-            ${currentQuestion.possibleAnswers[letter]}
-          </label>`
-        );
-      }
-  // add this question and its answers to the output
-  output.push(
-    `<div class="question"> ${currentQuestion.question} </div>
-    <div class="answers"> ${possibleAnswers.join('')} </div>`
-  );
-}
-);
- // finally combine our output list into one string of HTML and put it on the page
- questionContainer.innerHTML = output.join('');
-}
-
-//countdown function
-function countDown() {
-    time--;
-    timerEl.textContent = "Time remaining: " + time;
-    //once the timer hits 0, the game ends
-    if (time === 0) {
-        endGame();
+    if (currentQuestion < 4) {
+        renderQuestion();
     }
+});
+
+function renderQuestion() {
+
+    question.innerHTML = ""
+    possibleAnswers.innerHTML = ""
+
+    question.append(allQuestions[currentQuestion].question)
+    var optionOne = document.createElement("button");
+    optionOne.textContent = allQuestions[currentQuestion].possibleAnswers[0];
+    possibleAnswers.append(optionOne);
+    var optionTwo = document.createElement("button");
+    optionTwo.textContent = allQuestions[currentQuestion].possibleAnswers[1];
+    possibleAnswers.append(optionTwo);
+    var optionThree = document.createElement("button");
+    optionThree.textContent = allQuestions[currentQuestion].possibleAnswers[2];
+    possibleAnswers.append(optionThree);
+    var optionFour = document.createElement("button");
+    optionFour.textContent = allQuestions[currentQuestion].possibleAnswers[3];
+    possibleAnswers.append(optionFour);
+
 };
-function showResults(){
 
-    // gather answer containers from our quiz
-    const answerContainers = questionContainer.querySelectorAll('.answers');
-  //
-    // keep track of user's answers
-    let numCorrect = 0;
-  
-    // for each question...
-    allQuestions.forEach( (currentQuestion, questionNumber) => {
-  
-      // find selected answer
-      const answerContainer = answerContainers[questionNumber];
-      const selector = `input[name=question${questionNumber}]:checked`;
-      const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-  
-      // if answer is correct
-      if(userAnswer === currentQuestion.answerIndex){
-        // add to the number of correct answers
-        numCorrect++;
-      // color the answers green
-      answerContainers[questionNumber].style.color = 'lightgreen';
-    }
-    // if answer is wrong or blank
-    else{
-      // color the answers red
-      answerContainers[questionNumber].style.color = 'red';
-    }
-  });
+function startQuiz() {
 
-  // show number of correct answers out of total
-  resultsContainer.innerHTML = `${numCorrect} out of ${allQuestions.length}`;
+    var interval = setInterval(function () {
+        timerEl.innerHTML = count;
+        count--;
+
+        if (count < 0 || currentQuestion > 3) {
+            clearInterval(interval);
+            endQuiz();
+        }
+
+    }, 1000);
+
+    currentQuestion = 0;
+    totalCorrectAnswers = 0;
+    count = 60
+    document.querySelector(".final-score").innerHTML = "";
+    renderQuestion();
+};
+
+function endQuiz() {
+
+    hideResults = false;
+
+    question.innerHTML = ""
+    possibleAnswers.innerHTML = ""
+    Alert.innerHTML = ""
+
+    finalScore.append(totalCorrectAnswers);
+
+    hideResultsPage();
+};
+
+function renderHighscores() {
+
+    var scoreInitials = localStorage.getItem("initials");
+    var storedFinalScore = localStorage.getItem("final-score");
+
+    listedHighscoreInitials.textContent = scoreInitials;
+    listedHighscoreScores.textContent = storedFinalScore;
+
+};
+
+submitButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    var scoreInitials = document.querySelector("#initials").value;
+    var storedFinalScore = totalCorrectAnswers;
+
+
+    localStorage.setItem("initials", scoreInitials);
+    localStorage.setItem("final-score", storedFinalScore);
+
+    hideResults = true;
+    hideResultsPage();
+    renderHighscores();
+})
+
+clearHighscoreButton.addEventListener("click", function () {
+    localStorage.clear();
+    listedHighscoreInitials.textContent = "";
+    listedHighscoreScores.textContent = "";
+});
+
+restartButton.addEventListener("click", startQuiz)
+
+function hideStartPage() {
+    var startDiv = document.getElementById("start-screen");
+    if (startDiv.style.display === "none") {
+        startDiv.style.display = "block";
+    } else {
+        startDiv.style.display = "none";
+    }
 }
 
-//onsubmit show results
-submitButton.addEventListener('click', function(event) { //questionContainer.classlist.toggle('hide')
-showResults()
-});
+function hideResultsPage() {
+    var resultsDiv = document.getElementById("results-page");
 
-//load quiz page on click
-startButton.addEventListener('click', function(event) {
-    startScreen.style.display = 'none'
-    timerEl.classList.toggle('hide')
-    questionContainer.classList.toggle('hide')
-    startQuiz(questionIndex)
-    
-    const runTimer = setInterval(function(){
-        if(timer === 0 ) {
-            clearInterval(runTimer)
-            //run some end game scenario or function
-        }
-        timerEl.innerHTML = timer;
-        timer--
-    }, 1000)
+    if (hideResults == true) {
+    resultsDiv.style.display = "none"
+    } else {
+        resultsDiv.style.display = "block"
+    }
+}
 
-});
-    
-startQuiz();  
-showResults();
-    
+function hideHighscorePage() {
+    var highscoreDiv = document.getElementById("highscore-page");
+    if (highscoreDiv.style.display === "none") {
+        highscoreDiv.style.display = "block";
+    } else {
+        highscoreDiv.style.display = "none";
+    }
+}
+
